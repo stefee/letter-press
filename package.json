@@ -24,13 +24,13 @@
     "url": "https://github.com/srilq/letter-press/issues"
   },
   "homepage": "https://github.com/srilq/letter-press#README",
-  "description": "Write letters. 📨",
+  "description": "📨",
   "keywords": [
     "markdown",
+    "md",
     "html",
     "pdf",
-    "letter",
-    "press",
-    "letter-press"
+    "letters",
+    "letter press"
   ]
 }
