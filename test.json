@@ -1,0 +1,36 @@
+{
+  "from": [
+    {
+      "id": "dapibus",
+      "name": "Dapibus",
+      "email": "dapibus@email.com",
+      "emailUKC": "dapibus@kentforlife.net",
+      "mob": "012345678901",
+      "website": "http://dapibus.com",
+      "github": "dapibus",
+      "intro": "Dear Sir/Madam"
+    },
+    {
+      "id": "parturient",
+      "name": "Parturient",
+      "email": "parturient@email.com",
+      "emailUKC": "parturient@kentforlife.net",
+      "mob": "012345678901",
+      "website": "http://parturient.com",
+      "github": "parturient",
+      "intro": "To whom it may concern"
+    }
+  ],
+  "to": [
+    {
+      "id": "foo",
+      "company": "Foo ltd",
+      "position": "Foo Developer"
+    },
+    {
+      "id": "bar",
+      "company": "Bar ltd",
+      "position": "Bar Programmer"
+    }
+  ]
+}
