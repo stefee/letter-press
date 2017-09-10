@@ -21,7 +21,7 @@ module.exports = (title, markdown) => {
     }
   })
 
-  return pug.renderFile(path.resolve(__dirname, './ghmd.pug'), {
+  return pug.renderFile(path.join(__dirname, 'ghmd.pug'), {
     pretty: true,
     title: title,
     content: markdownIt.render(markdown)

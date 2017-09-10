@@ -8,7 +8,7 @@
       "mob": "012345678901",
       "website": "http://dapibus.com",
       "github": "dapibus",
-      "intro": "Dear Sir/Madam"
+      "salutation": "Dear Sir/Madam"
     },
     {
       "id": "parturient",
@@ -18,7 +18,7 @@
       "mob": "012345678901",
       "website": "http://parturient.com",
       "github": "parturient",
-      "intro": "To whom it may concern"
+      "salutation": "To whom it may concern"
     }
   ],
   "to": [

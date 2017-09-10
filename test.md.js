@@ -1,7 +1,7 @@
 module.exports = (date, from, to) =>
 `<p style="text-align: right">${date}</p>
 
-${from.intro},
+${from.salutation},
 
 Nullam quis risus eget urna mollis ornare vel eu leo the ${to.position} position at ${to.company}.
 

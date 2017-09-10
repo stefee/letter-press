@@ -3,7 +3,7 @@ const path = require('path')
 const ghmd = require('./ghmd')
 
 module.exports = (id, md, opts) => {
-  const dist = opts.dist ? opts.dist : path.join(__dirname, 'dist')
+  const dist = opts.dist ? opts.dist : path.resolve('dist')
   if (!fs.existsSync(dist)) fs.mkdirSync(dist)
   write(path.join(dist, id + '.md'), md)
   const html = ghmd(id, md)
