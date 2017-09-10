@@ -11,10 +11,9 @@ module.exports = (id, md, opts) => {
   const html = ghmd(id, md)
   const htmlPath = path.join(dist, id + '.html')
   const pdfPath = path.join(dist, id + '.pdf')
-  write(htmlPath, html).then(path => print(path, pdfPath))
-      .catch(err => {
-        throw err
-      })
+  write(htmlPath, html)
+      .then(htmlPath => print(htmlPath, pdfPath))
+      .catch(err => { throw err })
 
   async function print (html, pdf) {
     const browser = await puppeteer.launch()
@@ -26,15 +25,16 @@ module.exports = (id, md, opts) => {
       path: pdf,
       format: 'A4'
     })
-    console.log('File written: ' + pdf)
     browser.close()
+    console.log('File written: ' + pdf)
+    return Promise.resolve(pdf)
   }
 
   function write (file, data) {
     return pify(fs.writeFile)(file, data).then(err => {
       if (err) throw err
       console.log('File written: ' + file)
-      return file
+      return Promise.resolve(file)
     })
   }
 }
