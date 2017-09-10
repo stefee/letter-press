@@ -6,6 +6,13 @@ html
     style
       include /primer-css/build/build.css
       include /highlight.js/styles/github.css
+    style.
+      @media print {
+        @page {
+            size: A4 portrait;
+            margin: 2.54cm;
+        }
+      }
   body
-    .markdown-body
+    .markdown-body(style='font-size:10pt')
       !=content
