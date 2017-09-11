@@ -19,7 +19,9 @@
     "puppeteer": "^0.10.2"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
+    "rimraf": "^2.6.2",
+    "standard": "^10.0.3",
+    "tape": "^4.8.0"
   },
   "bugs": {
     "url": "https://github.com/srilq/letter-press/issues"

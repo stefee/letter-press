@@ -3,43 +3,49 @@ const path = require('path')
 const ghmd = require('./ghmd')
 const puppeteer = require('puppeteer')
 
-module.exports = (id, md, opts) => {
-  const dist = opts && opts.dist ? opts.dist : path.resolve('dist')
-  if (!fs.existsSync(dist)) fs.mkdirSync(dist)
-  press(id, md, dist).catch(console.error)
+module.exports = (id, markdown, opts) => {
+  const o = {}
+  o.quiet = opts && opts.quiet ? opts.quiet : false
+  o.dist = opts && opts.dist ? opts.dist : path.resolve('dist')
+  o.ghmd = opts && opts.markdown ? opts.markdown : null
+  o.pdf = opts && opts.pdf ? opts.pdf : {
+    format: 'A4'
+  }
+  if (!fs.existsSync(o.dist)) fs.mkdirSync(o.dist)
+  if (!fs.existsSync(o.dist)) return Promise.reject(new Error('Error: dist directory does not exist and could not be created: ' + o.dist))
+  return press(id, markdown, o).catch(e => console.error('🚨 ' + e))
 }
 
-async function press (id, md, dist) {
-  const mdName = id + '.md'
-  const htmlName = id + '.html'
-  const pdfName = id + '.pdf'
-  const mdPath = path.join(dist, mdName)
-  const htmlPath = path.join(dist, htmlName)
-  const pdfPath = path.join(dist, pdfName)
+async function press (id, markdown, opts) {
+  const pathMd = path.join(opts.dist, id + '.md')
+  const pathHtml = path.join(opts.dist, id + '.html')
+  const pathPdf = path.join(opts.dist, id + '.pdf')
 
   try {
     // write md
-    write(mdPath, md)
-        .then(file => console.log('✨ ' + mdName + ' done'))
+    write(pathMd, markdown)
+        .then(file => opts.quiet || console.log('✨ ' + id + '.md done'))
         .catch(e => console.error('🚨 ' + e))
 
     // write html
-    const html = await ghmd(id, md)
+    const html = await ghmd(id, markdown, opts.ghmd)
         .catch(e => console.error('🚨 ' + e))
-    await write(htmlPath, html)
-        .then(file => console.log('✨ ' + htmlName + ' done'))
+    if (!html) throw new Error('Error: Something went wrong while generating HTML.')
+    await write(pathHtml, html)
+        .then(file => opts.quiet || console.log('✨ ' + id + '.html done'))
         .catch(e => console.error('🚨 ' + e))
 
     // write pdf
-    pdf(htmlPath, pdfPath)
-        .then(file => console.log('✨ ' + pdfName + ' done'))
+    await pdf(pathHtml, pathPdf, opts.pdf)
+        .then(file => opts.quiet || console.log('✨ ' + id + '.pdf done'))
         .catch(e => console.error('🚨 ' + e))
   } catch (e) {
     throw e
   }
 }
 
-async function pdf (file, out) {
+async function pdf (file, out, opts) {
+  opts.path = out
   let browser
   try {
     browser = await puppeteer.launch()
@@ -47,10 +53,7 @@ async function pdf (file, out) {
     await page.goto('file://' + file, {
       waitUntil: 'networkidle'
     })
-    await page.pdf({
-      path: out,
-      format: 'A4'
-    })
+    await page.pdf(opts)
     browser.close()
     return out
   } catch (e) {

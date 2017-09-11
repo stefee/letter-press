@@ -5,9 +5,9 @@ const pug = require('pug')
 const MarkdownIt = require('markdown-it')
 const hljs = require('highlight.js')
 
-module.exports = (title, markdown) => {
+module.exports = (title, markdown, opts) => {
   return new Promise((resolve, reject) => {
-    const markdownIt = new MarkdownIt({
+    const markdownIt = new MarkdownIt(opts || {
       html: true,
       breaks: true,
       langPrefix: 'hljs ',
