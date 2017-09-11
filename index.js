@@ -11,8 +11,12 @@ module.exports = (id, markdown, opts) => {
   o.pdf = opts && opts.pdf ? opts.pdf : {
     format: 'A4'
   }
+
+  if (typeof id !== 'string') return Promise.reject(new Error('Error: String argument not supplied: id'))
+  if (typeof markdown !== 'string') return Promise.reject(new Error('Error: String argument not supplied: markdown'))
   if (!fs.existsSync(o.dist)) fs.mkdirSync(o.dist)
   if (!fs.existsSync(o.dist)) return Promise.reject(new Error('Error: dist directory does not exist and could not be created: ' + o.dist))
+
   return press(id, markdown, o).catch(e => console.error('🚨 ' + e))
 }
 
@@ -30,12 +34,13 @@ async function press (id, markdown, opts) {
     // write html
     const html = await ghmd(id, markdown, opts.ghmd)
         .catch(e => console.error('🚨 ' + e))
-    if (!html) throw new Error('Error: Something went wrong while generating HTML.')
+    if (!html) throw new Error('Something went wrong while generating HTML.')
     await write(pathHtml, html)
         .then(file => opts.quiet || console.log('✨ ' + id + '.html done'))
         .catch(e => console.error('🚨 ' + e))
 
     // write pdf
+    if (!fs.existsSync(pathHtml)) throw new Error('Something went wrong while generating HTML.')
     await pdf(pathHtml, pathPdf, opts.pdf)
         .then(file => opts.quiet || console.log('✨ ' + id + '.pdf done'))
         .catch(e => console.error('🚨 ' + e))
