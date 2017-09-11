@@ -10,26 +10,30 @@ module.exports = (id, md, opts) => {
 }
 
 async function press (id, md, dist) {
-  const mdPath = path.join(dist, id + '.md')
-  const htmlPath = path.join(dist, id + '.html')
-  const pdfPath = path.join(dist, id + '.pdf')
+  const mdName = id + '.md'
+  const htmlName = id + '.html'
+  const pdfName = id + '.pdf'
+  const mdPath = path.join(dist, mdName)
+  const htmlPath = path.join(dist, htmlName)
+  const pdfPath = path.join(dist, pdfName)
 
   try {
     // write md
     write(mdPath, md)
-        .then(file => console.log('File written: ' + file))
-        .catch(console.error)
+        .then(file => console.log('✨ ' + mdName + ' done'))
+        .catch(e => console.error('🚨 ' + e))
 
     // write html
-    const html = await ghmd(id, md).catch(e => console.error(e))
+    const html = await ghmd(id, md)
+        .catch(e => console.error('🚨 ' + e))
     await write(htmlPath, html)
-        .then(file => console.log('File written: ' + file))
-        .catch(console.error)
+        .then(file => console.log('✨ ' + htmlName + ' done'))
+        .catch(e => console.error('🚨 ' + e))
 
     // write pdf
     pdf(htmlPath, pdfPath)
-        .then(file => console.log('File written: ' + file))
-        .catch(console.error)
+        .then(file => console.log('✨ ' + pdfName + ' done'))
+        .catch(e => console.error('🚨 ' + e))
   } catch (e) {
     throw e
   }
@@ -51,7 +55,7 @@ async function pdf (file, out) {
     return out
   } catch (e) {
     if (browser && browser.close) {
-      console.error('Error: Problem printing PDF. Closing browser...')
+      console.error('🚨 Error: Problem printing PDF. Closing browser...')
       browser.close()
     }
     throw e
