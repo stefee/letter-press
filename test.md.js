@@ -7,10 +7,10 @@ Nullam quis risus eget urna mollis ornare vel eu leo the ${to.position} position
 
 Donec sed odio dui. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur.
 
-\`\`\`
+\`\`\`js
 var x = ten()
 x++
-return x
+console.log(x)
 
 function ten () {
   return 10
