@@ -16,7 +16,8 @@
     "markdown-it": "^8.4.0",
     "primer-css": "^9.3.0",
     "pug": "^2.0.0-rc.4",
-    "puppeteer": "^0.10.2"
+    "puppeteer": "^0.10.2",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "rimraf": "^2.6.2",
