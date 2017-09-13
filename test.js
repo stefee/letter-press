@@ -11,9 +11,12 @@ const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'test.json')))
 const date = new Date()
 const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
 
-test('letterpress test single auto', function (t) {
+test('print', function (t) {
   const out = path.join(__dirname, 'test')
-  const expected = ['dapibus_foo.md', 'dapibus_foo.html', 'dapibus_foo.pdf']
+  const expected = [
+    'dapibus_foo.html',
+    'dapibus_foo.pdf'
+  ]
 
   t.plan(expected.length + 1)
 
@@ -24,7 +27,9 @@ test('letterpress test single auto', function (t) {
   rimraf(out, function (err) {
     if (err) throw err
 
-    letterpress.print(id, markdown, { path: out })
+    letterpress.print(id, markdown, {
+      path: out
+    })
     .catch(e => {
       console.error(e.toString())
       t.fail('complete print')
@@ -37,9 +42,12 @@ test('letterpress test single auto', function (t) {
   })
 })
 
-test('letterpress test single with constructor', function (t) {
+test('print with launch & close', function (t) {
   const out = path.join(__dirname, 'test')
-  const expected = ['dapibus_foo.md', 'dapibus_foo.html', 'dapibus_foo.pdf']
+  const expected = [
+    'dapibus_foo.html',
+    'dapibus_foo.pdf'
+  ]
 
   t.plan(expected.length + 1)
 
@@ -52,13 +60,15 @@ test('letterpress test single with constructor', function (t) {
 
     let press
     try {
-      press = await letterpress.launch({ path: out })
+      press = await letterpress.launch({
+        path: out
+      })
       await press.print(id, markdown)
       press.close()
-      t.pass('complete print')
+      t.pass('complete print with launch & close')
     } catch (e) {
       console.error(e.toString())
-      t.fail('complete print')
+      t.fail('complete print with launch & close')
       if (press && press.close) {
         press.close()
       }
@@ -69,7 +79,7 @@ test('letterpress test single with constructor', function (t) {
   })
 })
 
-test('letterpress test multiple asynchronous', function (t) {
+test('print multiple', function (t) {
   const out = path.join(__dirname, 'test')
   const expected = [
     'dapibus_foo.html',
@@ -91,8 +101,7 @@ test('letterpress test multiple asynchronous', function (t) {
     let press
     try {
       press = await letterpress.launch({
-        path: out,
-        writeMarkdown: false
+        path: out
       })
 
       const ps = [] // promises

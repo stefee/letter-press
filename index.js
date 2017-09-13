@@ -22,45 +22,36 @@ module.exports = {
   Press: Press
 }
 
-function writeFile (file, data) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, data, err => {
-      if (err) {
-        reject(err.toString())
-        return
-      }
-      resolve(true)
-    })
-  })
-}
-
 function Press (opts) {
   this._opts = extend({
     path: path.resolve('dist'),
-    writeMarkdown: true,
+    quiet: false,
     pdf: {
       format: 'A4'
     }
   }, opts || {})
+  this._opts._logLevel = this._opts.quiet ? 1 : 2
   this._browser = null
   this._page = null
-  this._printJobs = []
+  this._printQueue = Promise.resolve()
 }
 
 Press.prototype.launch = async function () {
   if (this._browser && this._browser.close) return this
 
+  this._log('launching press...')
   try {
     this._browser = await puppeteer.launch()
-    return this
   } catch (e) {
     console.error('🚨  Unexpected error while launching browser!')
     throw e
   }
+  return this
 }
 
 Press.prototype.close = function () {
   if (this._browser && this._browser.close) {
+    this._log('closing press...')
     try {
       this._browser.close()
       delete this._browser
@@ -86,49 +77,63 @@ Press.prototype.print = async function (id, markdown, opts) {
       }
     }
 
-    const pathMd = path.join(o.path, id + '.md')
-    const pathHtml = path.join(o.path, id + '.html')
-    const pathPdf = path.join(o.path, id + '.pdf')
-
-    // write md
-    if (o.writeMarkdown) {
-      let err
-      writeFile(pathMd, markdown)
-      .then(() => console.log(`✨  ${id}.md done`))
-      .catch(e => { err = e })
-      if (err) throw err
-    }
+    const file = path.join(o.path, id + '.html')
+    const out = path.join(o.path, id + '.pdf')
 
     // write html
     const html = await ghmd(id, markdown, o.template, o.ghmd)
-    await writeFile(pathHtml, html)
-    console.log(`✨  ${id}.html done`)
+    await this._writeFile(file, html)
+    this._log(`${id}.html done`)
 
-    // wait for print existing tasks
-    await Promise.all(this._printJobs)
-
-    // write pdf
-    this._page = await this._browser.newPage()
-    this._printJobs.push(this._pdf(pathHtml, pathPdf, o.pdf))
-    await Promise.all(this._printJobs)
-
-    console.log(`✨  ${id}.pdf done`)
+    // queue print job
+    await this._queuePrint(file, out, o.pdf)
+    this._log(`${id}.pdf done`)
   } catch (e) {
-    console.error(`🚨  Error printing ${id} !`)
+    this._logError(`🚨  Error printing ${id} !`)
     throw e
   }
 
   return this
 }
 
+Press.prototype._queuePrint = function (file, out, opts) {
+  const self = this
+  return new Promise((resolve, reject) => {
+    self._printQueue.then(() => {
+      self._printQueue = self._printQueue
+          .then(() => self._pdf(file, out, opts))
+          .then(resolve)
+          .catch(reject)
+    })
+  })
+}
+
 Press.prototype._pdf = async function (file, out, opts) {
   try {
-    await this._page.goto('file://' + file, {
-      waitUntil: 'networkidle'
-    })
+    this._page = await this._browser.newPage()
+    await this._page.goto('file://' + file, { waitUntil: 'networkidle' })
     await this._page.pdf(extend(opts, { path: out }))
-    return out
   } catch (e) {
     throw e
   }
+}
+
+Press.prototype._writeFile = function (file, data) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(file, data, err => {
+      if (err) {
+        reject(err)
+        return
+      }
+      resolve()
+    })
+  })
+}
+
+Press.prototype._log = function (thing) {
+  if (this._opts._logLevel >= 2) console.log('♥ ' + thing)
+}
+
+Press.prototype._logError = function (message) {
+  if (this._opts._logLevel >= 1) console.error(message)
 }
