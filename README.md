@@ -1,32 +1,87 @@
 # letter-press
 
-Print markdown letters.
+Print GitHub Markdown to PDF using headless Chrome.
 
 ## Example
 
-```js
-const press = require('letter-press')
-const fs = require('fs')
-const path = require('path')
+Print `letter.md` to `dist/letter.pdf` then log a completion message.
 
-const example = fs.readFileSync(path.join(__dirname, 'example.md'))
-press('example', example, { dist: 'dist' })
-    .then(() { console.log('Done!') })
+```js
+const letterpress = require('letter-press')
+const letter = fs.readFileSync(path.join(__dirname, 'letter.md'))
+
+letterpress.print('letter', letter)
+  .then(() => console.log('🐈  done'))
+```
+
+#### Example: Print multiple letters using a template
+
+Print letters to `dist/*.pdf` based on a Markdown template and some data (e.g. mailing list).
+
+```js
+const letterpress = require('letter-press')
+
+const letter = (sender, recipient) =>
+`Dear ${recipient},
+
+Here is some **bold text**. *Winky face*.
+
+Yours sincerely,
+${sender}
+`
+const list = [
+  { id: 'letter1', sender: 'Your Secret Lesbian Admirer', recipient: 'John' }
+  // ...
+];
+
+(async () => {
+  const press = await letterpress.launch()
+
+  const jobs = []
+  list.forEach(item => {
+    const markdown = letter(item.sender, item.recipient)
+    const job = press.print(item.id, markdown)
+    jobs.push(job)
+  })
+
+  await Promise.all(jobs)
+  press.close()
+})()
 ```
 
 ## API
 
-### `press(id, markdown, [opts])`
-Print the given `markdown` string. Writes the following files:
+### `letterpress.print(id, markdown, [opts])`
+Print the given `markdown` string to PDF. **Return:** Promise
 
-`dist/id.md`<br>
+Writes the following files:<br>
 `dist/id.html`<br>
-`dist/id.pdf`<br>
+`dist/id.pdf`
 
-Returns a Promise. **Note:** The markdown `.md` file is written asynchronously.
+### `letterpress.launch([opts])`
+Launch a new Press. **Return:** Promise of Press
 
-#### Options
-`opts.dist` path to output folder. **Default:** `dist`<br>
-`opts.quiet` only log errors. **Default:** `false`<br>
-`opts.markdown` options passed to markdown-it `new MarkdownIt(opts)` [API](https://github.com/markdown-it/markdown-it#api)<br>
-`opts.pdf` options passed to puppeteer `page.pdf(opts)` [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
+### `Press.prototype.print(id, markdown, [opts])`
+Print the given `markdown` string to PDF. **Return:** Promise of Press
+
+Writes the following files:<br>
+`dist/id.html`<br>
+`dist/id.pdf`
+
+The returned Promise resolves with the Press object so that prints can easily be chained together with `.then`.
+
+### `Press.prototype.close()`
+Close this Press. Call after all prints have resolved.
+
+### Options
+These options have nice defaults but can be entirely overridden.
+
+`opts.path` Path to output folder. **Default:** `dist`
+
+`opts.quiet` Only log errors. **Default:** `false`
+
+`opts.template` Path to pug template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/master/ghmd.pug)
+
+`opts.markdown` Options passed to markdown-it `new MarkdownIt(opts)`. [API](https://github.com/markdown-it/markdown-it#api)
+
+`opts.pdf` Options passed to puppeteer `page.pdf(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
