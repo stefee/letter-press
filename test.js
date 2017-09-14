@@ -122,7 +122,6 @@ test('print multiple', function (t) {
       })
 
       await Promise.all(ps)
-
       press.close()
       t.pass('complete print multiple')
     } catch (e) {
