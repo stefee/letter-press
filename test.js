@@ -11,8 +11,17 @@ const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'test.json')))
 const date = new Date()
 const dateString = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
 
+const testDir = path.join(__dirname, 'test')
+if (!fs.existsSync(testDir)) {
+  try {
+    fs.mkdirSync(testDir)
+  } catch (e) {
+    throw new Error('Output directory does not exist and could not be created: ' + testDir)
+  }
+}
+
 test('print', function (t) {
-  const out = path.join(__dirname, 'test')
+  const out = path.join(testDir, 'print')
   const expected = [
     'dapibus_foo.html',
     'dapibus_foo.pdf'
@@ -43,7 +52,7 @@ test('print', function (t) {
 })
 
 test('print with launch & close', function (t) {
-  const out = path.join(__dirname, 'test')
+  const out = path.join(testDir, 'print_with_launch_close')
   const expected = [
     'dapibus_foo.html',
     'dapibus_foo.pdf'
@@ -58,29 +67,33 @@ test('print with launch & close', function (t) {
   rimraf(out, async function (err) {
     if (err) throw err
 
-    let press
-    try {
-      press = await letterpress.launch({
-        path: out
-      })
-      await press.print(id, markdown)
-      press.close()
-      t.pass('complete print with launch & close')
-    } catch (e) {
+    let instance
+    letterpress.launch({
+      path: out
+    })
+    .then(press => {
+      instance = press
+      return press
+    })
+    .then(press => press.print(id, markdown))
+    .then(press => press.close())
+    .then(() => t.pass('complete print with launch & close'))
+    .catch(e => {
       console.error(e.toString())
       t.fail('complete print with launch & close')
-      if (press && press.close) {
-        press.close()
+      if (instance && instance.close) {
+        instance.close()
       }
-    }
-
-    expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
-    t.end()
+    })
+    .then(() => {
+      expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
+      t.end()
+    })
   })
 })
 
 test('print multiple', function (t) {
-  const out = path.join(__dirname, 'test')
+  const out = path.join(testDir, 'print_multiple')
   const expected = [
     'dapibus_foo.html',
     'dapibus_bar.html',
