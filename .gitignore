@@ -3,3 +3,4 @@ tmp/
 npm-debug.log*
 .DS_Store
 test/
+example/dist/
