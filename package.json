@@ -1,6 +1,6 @@
 {
   "name": "letter-press",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "main": "index.js",
   "scripts": {
     "test": "standard && ./test.js"
@@ -28,13 +28,16 @@
     "url": "https://github.com/srilq/letter-press/issues"
   },
   "homepage": "https://github.com/srilq/letter-press#README",
-  "description": "💌",
+  "description": "Print GitHub Markdown to PDF using headless Chrome.",
   "keywords": [
+    "github markdown",
+    "ghmd",
     "markdown",
     "md",
-    "html",
     "pdf",
     "letters",
-    "letter press"
+    "letter press",
+    "headless chrome",
+    "print"
   ]
 }
