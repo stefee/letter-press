@@ -3,9 +3,6 @@
     {
       "id": "dapibus",
       "name": "Dapibus",
-      "email": "dapibus@email.com",
-      "emailUKC": "dapibus@kentforlife.net",
-      "mob": "012345678901",
       "website": "http://dapibus.com",
       "github": "dapibus",
       "salutation": "Dear Sir/Madam"
@@ -13,9 +10,6 @@
     {
       "id": "parturient",
       "name": "Parturient",
-      "email": "parturient@email.com",
-      "emailUKC": "parturient@kentforlife.net",
-      "mob": "012345678901",
       "website": "http://parturient.com",
       "github": "parturient",
       "salutation": "To whom it may concern"
@@ -24,13 +18,23 @@
   "to": [
     {
       "id": "foo",
-      "company": "Foo ltd",
-      "position": "Foo Developer"
+      "name": "Foo ltd",
+      "info": "Foo Info"
     },
     {
       "id": "bar",
-      "company": "Bar ltd",
-      "position": "Bar Programmer"
+      "name": "Bar ltd",
+      "info": "Bar Info"
+    },
+    {
+      "id": "fooo",
+      "name": "Fooo ltd",
+      "info": "Fooo Info"
+    },
+    {
+      "id": "barr",
+      "name": "Barr ltd",
+      "info": "Barr Info"
     }
   ]
 }

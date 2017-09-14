@@ -97,12 +97,20 @@ test('print multiple', function (t) {
   const expected = [
     'dapibus_foo.html',
     'dapibus_bar.html',
+    'dapibus_fooo.html',
+    'dapibus_barr.html',
     'parturient_foo.html',
     'parturient_bar.html',
+    'parturient_fooo.html',
+    'parturient_barr.html',
     'dapibus_foo.pdf',
     'dapibus_bar.pdf',
+    'dapibus_fooo.pdf',
+    'dapibus_barr.pdf',
     'parturient_foo.pdf',
-    'parturient_bar.pdf'
+    'parturient_bar.pdf',
+    'parturient_fooo.pdf',
+    'parturient_barr.pdf'
   ]
 
   t.plan(expected.length + (data.from.length * data.to.length) + 1)
