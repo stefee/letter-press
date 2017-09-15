@@ -71,7 +71,7 @@ Writes the following files:<br>
 The returned Promise resolves with the Press object so that tasks can be chained together (e.g. `letterpress.launch` then `press.print` then `press.close`). However, it is not necessary to wait for a `print` to resolve before calling `print` again - print scheduling is all handled under the hood.
 
 ### `Press.prototype.close()`
-Close this Press. Call after all prints have resolved.
+Close this Press. Call after all prints have resolved or if an error is caught.
 
 ### Options
 These options can be set at launch and/or for each print.
