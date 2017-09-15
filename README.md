@@ -55,17 +55,23 @@ const list = [
 ## API
 
 ### `letterpress.print(id, markdown, [opts])`
-Print the given `markdown` string to PDF. **Return:** Promise
+Print the given `markdown` string to PDF.
+
+**Return:** Promise
 
 Writes the following files:<br>
 `dist/id.html`<br>
 `dist/id.pdf`
 
 ### `letterpress.launch([opts])`
-Launch a new Press. **Return:** Promise of Press
+Launch a new Press.
+
+**Return:** Promise of Press
 
 ### `Press.prototype.print(id, markdown, [opts])`
-Print the given `markdown` string to PDF. **Return:** Promise of Press
+Print the given `markdown` string to PDF.
+
+**Return:** Promise of Press
 
 Writes the following files:<br>
 `dist/id.html`<br>
