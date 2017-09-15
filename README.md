@@ -5,6 +5,10 @@
 
 Print GitHub Markdown to PDF using headless Chrome.
 
+## Install
+
+`npm install letter-press`
+
 ## Example
 
 Print `letter.md` to `dist/letter.pdf` then log a completion message.
@@ -71,7 +75,7 @@ Writes the following files:<br>
 `dist/id.html`<br>
 `dist/id.pdf`
 
-The returned Promise resolves with the Press object so that tasks can be chained together (e.g. `letterpress.launch` then `press.print` then `press.close`). However, it is not necessary to wait for a `print` to resolve before calling `print` again - print scheduling is all handled under the hood.
+The returned Promise resolves with the Press object so that calls can be chained (e.g. `letterpress.launch` then `press.print` then `press.close`). It is not necessary to wait for a `print` to resolve before calling `print` again - print scheduling is all handled under the hood.
 
 ### `Press.prototype.close()`
 Close this Press. Call after all prints have resolved or if an error is caught.
@@ -81,10 +85,12 @@ These options can be set at launch and/or for each print.
 
 `opts.path` Path to output folder. **Default:** `dist`
 
-`opts.quiet` Only log errors. **Default:** `false`
+`opts.quiet` Only log thrown exceptions. **Default:** `false`
 
-`opts.template` Path to pug template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/master/ghmd.pug)
+`opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://github.com/markdown-it/markdown-it#api)
 
-`opts.markdown` Options passed to markdown-it `new MarkdownIt(opts)`. [API](https://github.com/markdown-it/markdown-it#api)
+`opts.template` Path to **pug** template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/master/ghmd.pug)
 
-`opts.pdf` Options passed to puppeteer `page.pdf(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
+`opts.pug` Options passed to **pug**: `pug.renderFile`. [API](https://pugjs.org/api/reference.html)
+
+`opts.pdf` Options passed to **puppeteer**: `page.pdf(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
