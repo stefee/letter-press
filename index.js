@@ -81,7 +81,11 @@ Press.prototype.print = async function (id, markdown, opts) {
     const out = path.join(o.path, id + '.pdf')
 
     // write html
-    const html = await ghmd(id, markdown, o.template, o.markdown)
+    const html = await ghmd(id, markdown, {
+      markdown: o.markdown,
+      template: o.template,
+      pug: o.pug
+    })
     await this._writeFile(file, html)
     this._log(`${id}.html done`)
 
