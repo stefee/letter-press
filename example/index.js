@@ -7,9 +7,9 @@ const list = [
   { id: 'letter1', sender: 'Your Secret Admirer', recipient: 'John' },
   { id: 'letter2', sender: 'Your Secret Admirer', recipient: 'Tanya' }
   // ...
-];
+]
 
-(async () => {
+;(async () => {
   let press
   try {
     press = await letterpress.launch({

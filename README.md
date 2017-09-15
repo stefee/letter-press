@@ -35,21 +35,19 @@ ${sender}
 const list = [
   { id: 'letter1', sender: 'Your Secret Lesbian Admirer', recipient: 'John' }
   // ...
-];
+]
 
-(async () => {
-  const press = await letterpress.launch()
+const press = await letterpress.launch()
 
-  const jobs = []
-  list.forEach(item => {
-    const markdown = letter(item.sender, item.recipient)
-    const job = press.print(item.id, markdown)
-    jobs.push(job)
-  })
+const jobs = []
+list.forEach(item => {
+  const markdown = letter(item.sender, item.recipient)
+  const job = press.print(item.id, markdown)
+  jobs.push(job)
+})
 
-  await Promise.all(jobs)
-  press.close()
-})()
+await Promise.all(jobs)
+press.close()
 ```
 
 ## API
