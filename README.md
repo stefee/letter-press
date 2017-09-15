@@ -1,13 +1,9 @@
 # letter-press
 
-[![npm version](https://img.shields.io/npm/v/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![build status](https://img.shields.io/travis/srilq/letter-press/master.svg?style=flat-square)](https://travis-ci.org/srilq/letter-press)
+[![npm version](https://img.shields.io/npm/v/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![build status](https://img.shields.io/travis/srilq/letter-press/latest.svg?style=flat-square)](https://travis-ci.org/srilq/letter-press)
 [![downloads](https://img.shields.io/npm/dm/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 
 Print GitHub Markdown to PDF using headless Chrome.
-
-## Install
-
-`npm install letter-press`
 
 ## Example
 
@@ -89,7 +85,7 @@ These options can be set at launch and/or for each print.
 
 `opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://github.com/markdown-it/markdown-it#api)
 
-`opts.template` Path to **pug** template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/master/ghmd.pug)
+`opts.template` Path to **pug** template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/latest/ghmd.pug)
 
 `opts.pug` Options passed to **pug**: `pug.renderFile`. [API](https://pugjs.org/api/reference.html)
 
