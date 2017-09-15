@@ -81,9 +81,7 @@ test('print with launch & close', function (t) {
     .catch(e => {
       console.error(e.toString())
       t.fail('complete print with launch & close')
-      if (instance && instance.close) {
-        instance.close()
-      }
+      if (instance && instance.close) instance.close()
     })
     .then(() => {
       expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
@@ -148,9 +146,7 @@ test('print multiple', function (t) {
     } catch (e) {
       console.error(e.toString())
       t.fail('complete print multiple')
-      if (press && press.close) {
-        press.close()
-      }
+      if (press && press.close) press.close()
     }
 
     expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
