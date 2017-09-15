@@ -13,7 +13,8 @@ const list = [
   let press
   try {
     press = await letterpress.launch({
-      path: path.join(__dirname, 'dist')
+      path: path.join(__dirname, 'dist'),
+      template: path.join(__dirname, 'template.pug')
     })
 
     const jobs = []
