@@ -1,5 +1,6 @@
 // based on 1000ch/node-github-markdown
 // https://github.com/1000ch/node-github-markdown
+const fs = require('fs')
 const path = require('path')
 const extend = require('xtend')
 const pug = require('pug')
@@ -27,8 +28,9 @@ module.exports = (title, markdown, templatePath, opts) => {
       }
     }, opts || {}))
 
-    const baseDir = templatePath ? path.resolve('.') : path.resolve('node_modules')
     if (!templatePath) templatePath = path.join(__dirname, 'ghmd.pug')
+    const baseDir = fs.existsSync(path.join(__dirname, 'node_modules'))
+        ? __dirname : path.resolve(__dirname, '../..')
     const file = pug.renderFile(path.resolve(templatePath), {
       pretty: true,
       title: title,
