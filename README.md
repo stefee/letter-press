@@ -1,7 +1,7 @@
 # letter-press
 
 [![npm version](https://img.shields.io/npm/v/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![build status](https://img.shields.io/travis/srilq/letter-press/master.svg?style=flat-square)](https://travis-ci.org/srilq/letter-press)
-![downloads](https://img.shields.io/npm/dm/letter-press.svg?style=flat-square) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
+[![downloads](https://img.shields.io/npm/dm/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 
 Print GitHub Markdown to PDF using headless Chrome.
 
