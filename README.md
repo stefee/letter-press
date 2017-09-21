@@ -85,12 +85,12 @@ These options can be set at launch and/or for each print.
 
 `opts.path` Path to output folder. **Default:** `dist`
 
-`opts.quiet` Only log thrown exceptions. **Default:** `false`
+`opts.quiet` Only log when something goes awry. **Default:** `false`
 
-`opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://github.com/markdown-it/markdown-it#api)
+`opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)
 
 `opts.template` Path to **pug** template file used when generating HTML. The template must contain a `!=content`, and may contain a `!=title`. **Default:** [Template File](https://github.com/srilq/letter-press/blob/latest/ghmd.pug)
 
-`opts.pug` Options passed to **pug**: `pug.renderFile`. [API](https://pugjs.org/api/reference.html)
+`opts.pug` Options passed to **pug**: `pug.renderFile`. [API](https://pugjs.org/api/reference.html#options)
 
 `opts.pdf` Options passed to **puppeteer**: `page.pdf(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
