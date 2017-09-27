@@ -27,7 +27,8 @@ function Press (opts) {
     path: path.resolve('dist'),
     quiet: false,
     pdf: {
-      format: 'A4'
+      format: 'A4',
+      printBackground: true
     }
   }, opts || {})
   this._opts._logLevel = this._opts.quiet ? 1 : 2
