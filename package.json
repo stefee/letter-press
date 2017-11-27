@@ -37,9 +37,17 @@
     "markdown",
     "md",
     "pdf",
+    "letter",
     "letters",
     "letter press",
+    "letter-press",
+    "letterpress",
     "headless chrome",
-    "print"
+    "puppeteer",
+    "pug",
+    "print",
+    "printer",
+    "converter",
+    "generator"
   ]
 }
