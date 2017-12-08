@@ -46,19 +46,18 @@ module.exports = (title, markdown, opts) => {
           : path.join(__dirname, '../..');
       }
       let content;
-      if (opts.toc) {
-      }
+      const pugOpts = extend(
+        {
+          pretty: true,
+          title: title,
+          basedir: baseDir,
+          content: markdownIt.render(markdown)
+        },
+        opts.pug || {}
+      );
       const file = pug.renderFile(
         path.resolve(opts.template || path.join(__dirname, 'ghmd.pug')),
-        extend(
-          {
-            pretty: true,
-            title: title,
-            basedir: baseDir,
-            content: markdownIt.render(markdown)
-          },
-          opts.pug || {}
-        )
+        pugOpts
       );
       resolve(file);
     } catch (e) {
