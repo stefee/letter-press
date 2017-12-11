@@ -31,8 +31,8 @@ module.exports = (title, markdown, opts) => {
         )
       );
 
-      if (opts.markdownInPlugins) {
-        opts.markdownInPlugins.forEach(plugin => {
+      if (opts.markdownItPlugins) {
+        opts.markdownItPlugins.forEach(plugin => {
           markdownIt.use(plugin);
         });
       }
