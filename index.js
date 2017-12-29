@@ -96,7 +96,8 @@ Press.prototype.print = async function(id, markdown, opts) {
     let html = await ghmd(id, markdown, {
       markdown: o.markdown,
       template: o.template,
-      pug: o.pug
+      pug: o.pug,
+      markdownItPlugins: o.markdownItPlugins
     });
     if (o.toc) {
       html = await toc(html, o.toc);
