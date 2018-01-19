@@ -70,6 +70,8 @@ Press.prototype.close = function() {
 Press.prototype.print = async function(id, markdown, opts) {
   const o = extend(this._opts, opts || {});
 
+  const preprocessors = o.preprocessors || [];
+
   try {
     if (!this._browser || !this._browser.close)
       throw new Error(
@@ -102,6 +104,11 @@ Press.prototype.print = async function(id, markdown, opts) {
     if (o.toc) {
       html = await toc(html, o.toc);
     }
+
+    let promise = Promise.resolve(html);
+    preprocessors.forEach(f => (promise = promise.then(f)));
+    html = await promise;
+
     await this._writeFile(file, html);
     this._log(`${id}.html done`);
 
