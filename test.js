@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const rimraf = require('rimraf')
+const extend = require('xtend')
 const test = require('tape')
 const letterpress = require('.')
 const letter = require('./test.md')
@@ -17,6 +18,17 @@ if (!fs.existsSync(testDir)) {
     fs.mkdirSync(testDir)
   } catch (e) {
     throw new Error('Output directory does not exist and could not be created: ' + testDir)
+  }
+}
+
+const opts = {
+  puppeteer: {
+    args: [
+      '--no-sandbox',
+      '--no-default-browser-check',
+      '--no-first-run',
+      '--disable-default-apps'
+    ]
   }
 }
 
@@ -36,9 +48,9 @@ test('print', function (t) {
   rimraf(out, function (err) {
     if (err) throw err
 
-    letterpress.print(id, markdown, {
+    letterpress.print(id, markdown, extend({
       path: out
-    })
+    }, opts || {}))
     .catch(e => {
       console.error(e.toString())
       t.fail('complete print')
@@ -68,9 +80,9 @@ test('print with launch & close', function (t) {
     if (err) throw err
 
     let instance
-    letterpress.launch({
+    letterpress.launch(extend({
       path: out
-    })
+    }, opts || {}))
     .then(press => {
       instance = press
       return press
@@ -119,9 +131,9 @@ test('print multiple', function (t) {
 
     let press
     try {
-      press = await letterpress.launch({
+      press = await letterpress.launch(extend({
         path: out
-      })
+      }, opts || {}))
 
       const ps = [] // promises
       data.from.forEach(from => {

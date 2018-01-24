@@ -46,7 +46,7 @@ Press.prototype.launch = async function () {
 
   this._log('launching press...')
   try {
-    this._browser = await puppeteer.launch()
+    this._browser = await puppeteer.launch(this._opts.puppeteer || {})
   } catch (e) {
     console.error('🚨  Unexpected error while launching browser!')
     throw e
@@ -137,11 +137,8 @@ Press.prototype._queuePrint = function (file, out, opts) {
 Press.prototype._pdf = async function (file, out, opts) {
   try {
     this._page = await this._browser.newPage()
-    await this._page.goto('file://' + file, {waitUntil: 'networkidle0'})
-    if (opts.waitFor) {
-      await this._page.waitFor(opts.waitFor)
-    }
-    await this._page.pdf(extend(opts, {path: out}))
+    await this._page.goto('file://' + file, { waitUntil: 'networkidle2' })
+    await this._page.pdf(extend(opts, { path: out }))
   } catch (e) {
     throw e
   }
