@@ -49,7 +49,6 @@ module.exports = (title, markdown, opts) => {
           ? __dirname
           : path.join(__dirname, '../..');
       }
-      let content;
       const pugOpts = extend(
         {
           pretty: true,
