@@ -3,13 +3,18 @@
   "version": "3.2.1",
   "main": "index.js",
   "scripts": {
-    "test": "standard && ./test.js"
+    "test": "standard && ./test.js",
+    "update-coc": "weallbehave -o ."
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/srilq/letter-press.git"
   },
-  "author": "srilq <git@srilq.email>",
+  "author": {
+    "name": "Stef",
+    "email": "stef@srilq.email",
+    "twitter": "@srilq_"
+  },
   "license": "MIT",
   "dependencies": {
     "highlight.js": "^9.12.0",
@@ -23,7 +28,8 @@
   "devDependencies": {
     "rimraf": "^2.6.2",
     "standard": "^10.0.3",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "weallbehave": "git+https://git@github.com/srilq/weallbehave.git#latest"
   },
   "bugs": {
     "url": "https://github.com/srilq/letter-press/issues"
