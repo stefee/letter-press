@@ -24,7 +24,7 @@ module.exports = (title, markdown, opts) => {
             reject(err)
           }
         }
-      }, opts.markdown || {}))
+      }, opts.markdownIt || {}))
 
       if (opts.markdownItPlugins) {
         opts.markdownItPlugins.forEach(plugin => {

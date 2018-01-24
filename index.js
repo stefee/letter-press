@@ -86,7 +86,7 @@ Press.prototype.print = async function (id, markdown, opts) {
 
     // write html
     let html = await ghmd(id, markdown, {
-      markdown: o.markdown,
+      markdownIt: o.markdownIt,
       template: o.template,
       pug: o.pug,
       markdownItPlugins: o.markdownItPlugins

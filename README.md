@@ -87,7 +87,7 @@ These options can be set at launch and/or for each print.
 
 `opts.quiet` Only log when something goes awry. **Default:** `false`
 
-`opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)
+`opts.markdownIt` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)
 
 `opts.markdownItPlugins` An array of `markdownItPlugins` which will, in order be applied as a plugin for the markdown-it processing. For example, we can add the `markdown-it-emoji` and the `markdown-it-math` plugins to the `markdown-it` processing chain like so:
 
