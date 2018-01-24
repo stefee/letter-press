@@ -6,7 +6,7 @@ const toc = require('./table-of-contents')
 const puppeteer = require('puppeteer')
 
 module.exports = {
-  launch: opts => {
+  launch: (opts) => {
     return new Press(opts).launch()
   },
   print: async (id, markdown, opts) => {
@@ -24,17 +24,14 @@ module.exports = {
 }
 
 function Press (opts) {
-  this._opts = extend(
-    {
-      path: path.resolve('dist'),
-      quiet: false,
-      pdf: {
-        format: 'A4',
-        printBackground: true
-      }
-    },
-    opts || {}
-  )
+  this._opts = extend({
+    path: path.resolve('dist'),
+    quiet: false,
+    pdf: {
+      format: 'A4',
+      printBackground: true
+    }
+  }, opts || {})
   this._opts._logLevel = this._opts.quiet ? 1 : 2
   this._browser = null
   this._page = null
@@ -73,20 +70,14 @@ Press.prototype.print = async function (id, markdown, opts) {
   const preprocessors = o.preprocessors || []
 
   try {
-    if (!this._browser || !this._browser.close) {
-      throw new Error(
-        'Press not initialised. Press.prototype.launch is required first.'
-      )
-    }
-    if (typeof id !== 'string') { throw new Error('Expected String for first argument: id') }
-    if (typeof markdown !== 'string') { throw new Error('Expected String for second argument: markdown') }
+    if (!this._browser || !this._browser.close) throw new Error('Press not initialised. Press.prototype.launch is required first.')
+    if (typeof id !== 'string') throw new Error('Expected String for first argument: id')
+    if (typeof markdown !== 'string') throw new Error('Expected String for second argument: markdown')
     if (!fs.existsSync(o.path)) {
       try {
         fs.mkdirSync(o.path)
       } catch (e) {
-        throw new Error(
-          'Output directory does not exist and could not be created: ' + o.path
-        )
+        throw new Error('Output directory does not exist and could not be created: ' + o.path)
       }
     }
 
@@ -100,9 +91,7 @@ Press.prototype.print = async function (id, markdown, opts) {
       pug: o.pug,
       markdownItPlugins: o.markdownItPlugins
     })
-    if (o.toc) {
-      html = await toc(html, o.toc)
-    }
+    if (o.toc) html = await toc(html, o.toc)
 
     let promise = Promise.resolve(html)
     preprocessors.forEach(f => (promise = promise.then(f)))
@@ -127,9 +116,9 @@ Press.prototype._queuePrint = function (file, out, opts) {
   return new Promise((resolve, reject) => {
     self._printQueue.then(() => {
       self._printQueue = self._printQueue
-        .then(() => self._pdf(file, out, opts))
-        .then(resolve)
-        .catch(reject)
+          .then(() => self._pdf(file, out, opts))
+          .then(resolve)
+          .catch(reject)
     })
   })
 }

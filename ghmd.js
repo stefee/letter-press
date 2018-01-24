@@ -12,24 +12,19 @@ module.exports = (title, markdown, opts) => {
 
   return new Promise((resolve, reject) => {
     try {
-      const markdownIt = new MarkdownIt(
-        extend(
-          {
-            html: true,
-            breaks: true,
-            langPrefix: 'hljs ',
-            highlight: (string, lang) => {
-              try {
-                if (lang) return hljs.highlight(lang, string).value
-                return hljs.highlightAuto(string).value
-              } catch (err) {
-                reject(err)
-              }
-            }
-          },
-          opts.markdown || {}
-        )
-      )
+      const markdownIt = new MarkdownIt(extend({
+        html: true,
+        breaks: true,
+        langPrefix: 'hljs ',
+        highlight: (string, lang) => {
+          try {
+            if (lang) return hljs.highlight(lang, string).value
+            return hljs.highlightAuto(string).value
+          } catch (err) {
+            reject(err)
+          }
+        }
+      }, opts.markdown || {}))
 
       if (opts.markdownItPlugins) {
         opts.markdownItPlugins.forEach(plugin => {
@@ -46,21 +41,17 @@ module.exports = (title, markdown, opts) => {
         baseDir = path.dirname(opts.template)
       } else {
         baseDir = fs.existsSync(path.join(__dirname, 'node_modules'))
-          ? __dirname
-          : path.join(__dirname, '../..')
+            ? __dirname
+            : path.join(__dirname, '../..')
       }
-      const pugOpts = extend(
-        {
+      const file = pug.renderFile(
+        path.resolve(opts.template || path.join(__dirname, 'ghmd.pug')),
+        extend({
           pretty: true,
           title: title,
           basedir: baseDir,
           content: markdownIt.render(markdown)
-        },
-        opts.pug || {}
-      )
-      const file = pug.renderFile(
-        path.resolve(opts.template || path.join(__dirname, 'ghmd.pug')),
-        pugOpts
+        }, opts.pug || {})
       )
       resolve(file)
     } catch (e) {

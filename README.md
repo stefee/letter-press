@@ -85,19 +85,17 @@ These options can be set at launch and/or for each print.
 
 `opts.path` Path to output folder. **Default:** `dist`
 
-`opts.toc` Table of contents options to autogenerate a table of contents. Options passed to `html-toc`. [API](https://github.com/jonschlinkert/html-toc)
-
 `opts.quiet` Only log when something goes awry. **Default:** `false`
 
 `opts.markdown` Options passed to **markdown-it**: `new MarkdownIt(opts)`. [API](https://markdown-it.github.io/markdown-it/#MarkdownIt.new)
 
-`opts.markdownItPlugins` an array of `markdownItPlugins` which will, in order be applied as a plugin for the markdown-it processing. For example, we can add the `markdown-it-emoji` and the `markdown-it-math` plugins to the `markdown-it` processing chain like so:
+`opts.markdownItPlugins` An array of `markdownItPlugins` which will, in order be applied as a plugin for the markdown-it processing. For example, we can add the `markdown-it-emoji` and the `markdown-it-math` plugins to the `markdown-it` processing chain like so:
 
-```javascript
-const emoji = require('markdown-it-emoji');
-const mdMath = require('markdown-it-math');
+```js
+const emoji = require('markdown-it-emoji')
+const mdMath = require('markdown-it-math')
 
-const options = {
+const opts = {
   markdownItPlugins: [emoji, [mdMath, {}]]
 }
 ```
@@ -106,22 +104,26 @@ const options = {
 
 `opts.pug` Options passed to **pug**: `pug.renderFile`. [API](https://pugjs.org/api/reference.html#options)
 
+`opts.puppeteer` Options passed to **puppeteer**: `puppeteer.launch(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions)
+
 `opts.pdf` Options passed to **puppeteer**: `page.pdf(opts)`. [API](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions)
+
+`opts.toc` Options passed to **html-toc**. [API](https://github.com/jonschlinkert/html-toc)
 
 `opts.preprocessors` An array of promise-returning functions that are expected to return the processed HTML. For instance, we can remove all the `<style></style>` tags from the html with the following preprocessor (using `cheerio`):
 
-```javascript
-const cheerio = require('cheerio');
+```js
+const cheerio = require('cheerio')
 
 const removeStyleFromBody = async html => {
-  const $ = cheerio.load(html);
-  $('body style').each(function(o) {
-    $(this).remove();
-  });
-  return $.html(); // Return all HTML
-};
+  const $ = cheerio.load(html)
+  $('body style').each(function (o) {
+    $(this).remove()
+  })
+  return $.html() // Return all HTML
+}
 
-const options = {
+const opts = {
   preprocessors: [removeStyleFromBody]
 }
 ```
