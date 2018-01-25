@@ -115,6 +115,7 @@ const opts = {
 ```js
 const cheerio = require('cheerio')
 
+// Notice this is an `async` function, meaning it returns a Promise
 const removeStyleFromBody = async html => {
   const $ = cheerio.load(html)
   $('body style').each(function (o) {
