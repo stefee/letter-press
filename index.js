@@ -14,10 +14,8 @@ module.exports = {
     try {
       await press.launch()
       await press.print(id, markdown)
-      press.close()
-    } catch (e) {
+    } finally {
       if (press && press.close) press.close()
-      throw e
     }
   },
   Press
