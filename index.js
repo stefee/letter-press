@@ -2,14 +2,14 @@ const fs = require('fs')
 const path = require('path')
 const extend = require('xtend')
 const ghmd = require('./ghmd')
-const toc = require('./table-of-contents')
+const toc = require('./toc')
 const puppeteer = require('puppeteer')
 
 module.exports = {
-  launch: (opts) => {
+  launch: function launch (opts) {
     return new Press(opts).launch()
   },
-  print: async (id, markdown, opts) => {
+  print: async function print (id, markdown, opts) {
     const press = new Press(opts)
     try {
       await press.launch()
@@ -20,7 +20,7 @@ module.exports = {
       throw e
     }
   },
-  Press: Press
+  Press
 }
 
 function Press (opts) {
@@ -112,15 +112,8 @@ Press.prototype.print = async function (id, markdown, opts) {
 }
 
 Press.prototype._queuePrint = function (file, out, opts) {
-  const self = this
-  return new Promise((resolve, reject) => {
-    self._printQueue.then(() => {
-      self._printQueue = self._printQueue
-          .then(() => self._pdf(file, out, opts))
-          .then(resolve)
-          .catch(reject)
-    })
-  })
+  this._printQueue = this._printQueue.then(() => this._pdf(file, out, opts))
+  return this._printQueue
 }
 
 Press.prototype._pdf = async function (file, out, opts) {
@@ -133,16 +126,8 @@ Press.prototype._pdf = async function (file, out, opts) {
   }
 }
 
-Press.prototype._writeFile = function (file, data) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(file, data, err => {
-      if (err) {
-        reject(err)
-        return
-      }
-      resolve()
-    })
-  })
+Press.prototype._writeFile = async function (file, data) {
+  fs.writeFile(file, data, err => { if (err) throw err })
 }
 
 Press.prototype._log = function (thing) {
