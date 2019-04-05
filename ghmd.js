@@ -15,7 +15,9 @@ module.exports = async function ghmd (title, markdown, opts) {
     breaks: true,
     langPrefix: 'hljs ',
     highlight: (string, lang) => {
-      if (lang) return hljs.highlight(lang, string).value
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(lang, string).value
+      }
       return hljs.highlightAuto(string).value
     }
   }, opts.markdownIt || {}))
