@@ -17,18 +17,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.1",
     "html-toc": "^2.0.0",
-    "markdown-it": "^8.4.2",
-    "primer": "^10.10.5",
-    "pug": "^2.0.3",
-    "puppeteer": "^1.14.0",
-    "xtend": "^4.0.1"
+    "markdown-it": "^11.0.0",
+    "primer": "^11.0.0",
+    "pug": "^3.0.0",
+    "puppeteer": "^5.0.0",
+    "xtend": "^4.0.2"
   },
   "devDependencies": {
-    "rimraf": "^2.6.3",
-    "standard": "^10.0.3",
-    "tape": "^4.10.1",
+    "rimraf": "^3.0.2",
+    "standard": "^14.3.4",
+    "tape": "^5.0.1",
     "weallbehave": "git+https://git@github.com/srilq/weallbehave.git#latest"
   },
   "bugs": {

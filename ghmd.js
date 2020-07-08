@@ -37,8 +37,8 @@ module.exports = async function ghmd (title, markdown, opts) {
     baseDir = path.dirname(opts.template)
   } else {
     baseDir = fs.existsSync(path.join(__dirname, 'node_modules'))
-        ? __dirname
-        : path.join(__dirname, '../..')
+      ? __dirname
+      : path.join(__dirname, '../..')
   }
   const file = pug.renderFile(
     path.resolve(opts.template || path.join(__dirname, 'ghmd.pug')),

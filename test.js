@@ -51,15 +51,15 @@ test('print', function (t) {
     letterpress.print(id, markdown, extend({
       path: out
     }, opts || {}))
-    .catch(e => {
-      console.error(e.toString())
-      t.fail('complete print')
-    })
-    .then(() => {
-      t.pass('complete print')
-      expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
-      t.end()
-    })
+      .catch(e => {
+        console.error(e.toString())
+        t.fail('complete print')
+      })
+      .then(() => {
+        t.pass('complete print')
+        expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
+        t.end()
+      })
   })
 })
 
@@ -83,22 +83,22 @@ test('print with launch & close', function (t) {
     letterpress.launch(extend({
       path: out
     }, opts || {}))
-    .then(press => {
-      instance = press
-      return press
-    })
-    .then(press => press.print(id, markdown))
-    .then(press => press.close())
-    .then(() => t.pass('complete print with launch & close'))
-    .catch(e => {
-      console.error(e.toString())
-      t.fail('complete print with launch & close')
-      if (instance && instance.close) instance.close()
-    })
-    .then(() => {
-      expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
-      t.end()
-    })
+      .then(press => {
+        instance = press
+        return press
+      })
+      .then(press => press.print(id, markdown))
+      .then(press => press.close())
+      .then(() => t.pass('complete print with launch & close'))
+      .catch(e => {
+        console.error(e.toString())
+        t.fail('complete print with launch & close')
+        if (instance && instance.close) instance.close()
+      })
+      .then(() => {
+        expected.forEach(p => t.ok(fs.existsSync(path.join(out, p)), 'exists: ' + p))
+        t.end()
+      })
   })
 })
 
@@ -143,11 +143,11 @@ test('print multiple', function (t) {
 
           ps.push(
             press.print(id, markdown)
-            .then(() => t.pass('print ' + id))
-            .catch(e => {
-              console.error(e.toString())
-              t.fail('print ' + id)
-            })
+              .then(() => t.pass('print ' + id))
+              .catch(e => {
+                console.error(e.toString())
+                t.fail('print ' + id)
+              })
           )
         })
       })
