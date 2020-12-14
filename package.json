@@ -19,7 +19,7 @@
   "dependencies": {
     "highlight.js": "^10.1.1",
     "html-toc": "^2.0.0",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.0.0",
     "primer": "^11.0.0",
     "pug": "^3.0.0",
     "puppeteer": "^5.0.0",
