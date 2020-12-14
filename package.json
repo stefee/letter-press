@@ -1,6 +1,6 @@
 {
   "name": "letter-press",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "main": "index.js",
   "scripts": {
     "test": "standard && ./test.js"
