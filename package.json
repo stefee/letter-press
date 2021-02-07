@@ -2,6 +2,12 @@
   "name": "letter-press",
   "version": "6.0.0",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "toc.js",
+    "ghmd.js",
+    "ghmd.pug"
+  ],
   "scripts": {
     "test": "standard && ./test.js"
   },
