@@ -33,7 +33,7 @@
   "devDependencies": {
     "rimraf": "3.0.2",
     "standard": "16.0.3",
-    "tape": "5.1.1"
+    "tape": "5.2.0"
   },
   "bugs": {
     "url": "https://github.com/srilq/letter-press/issues"
