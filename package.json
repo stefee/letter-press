@@ -22,12 +22,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "highlight.js": "^10.1.1",
+    "highlight.js": "^10.4.1",
     "html-toc": "^2.0.0",
-    "markdown-it": "^12.0.0",
+    "markdown-it": "^12.0.3",
     "primer": "^11.0.0",
-    "pug": "^3.0.0",
-    "puppeteer": "^7.0.0",
+    "pug": "^3.0.1",
+    "puppeteer": "^7.1.0",
     "xtend": "^4.0.2"
   },
   "devDependencies": {
