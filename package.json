@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "rimraf": "3.0.2",
-    "standard": "16.0.3",
+    "standard": "16.0.4",
     "tape": "5.3.1"
   },
   "bugs": {
