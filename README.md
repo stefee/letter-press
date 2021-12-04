@@ -1,5 +1,7 @@
 # letter-press
 
+**This project is no longer maintained. It might contain bugs and security vulnerabilities.**
+
 [![npm version](https://img.shields.io/npm/v/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![build status](https://api.travis-ci.com/stefee/letter-press.svg?branch=latest)](https://travis-ci.com/stefee/letter-press)
 [![downloads](https://img.shields.io/npm/dm/letter-press.svg?style=flat-square)](https://npmjs.org/package/letter-press) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 
